@@ -1,0 +1,15 @@
+C:\Users\dung1\Documents\CODING file\VS 2017\app_tester\app_tester\bin\Debug\app_tester.exe.config
+C:\Users\dung1\Documents\CODING file\VS 2017\app_tester\app_tester\bin\Debug\app_tester.exe
+C:\Users\dung1\Documents\CODING file\VS 2017\app_tester\app_tester\bin\Debug\app_tester.pdb
+C:\Users\dung1\Documents\CODING file\VS 2017\app_tester\app_tester\obj\Debug\app_tester.csprojAssemblyReference.cache
+C:\Users\dung1\Documents\CODING file\VS 2017\app_tester\app_tester\obj\Debug\MainWindow.g.cs
+C:\Users\dung1\Documents\CODING file\VS 2017\app_tester\app_tester\obj\Debug\App.g.cs
+C:\Users\dung1\Documents\CODING file\VS 2017\app_tester\app_tester\obj\Debug\app_tester_MarkupCompile.cache
+C:\Users\dung1\Documents\CODING file\VS 2017\app_tester\app_tester\obj\Debug\app_tester_MarkupCompile.lref
+C:\Users\dung1\Documents\CODING file\VS 2017\app_tester\app_tester\obj\Debug\MainWindow.baml
+C:\Users\dung1\Documents\CODING file\VS 2017\app_tester\app_tester\obj\Debug\app_tester.g.resources
+C:\Users\dung1\Documents\CODING file\VS 2017\app_tester\app_tester\obj\Debug\app_tester.Properties.Resources.resources
+C:\Users\dung1\Documents\CODING file\VS 2017\app_tester\app_tester\obj\Debug\app_tester.csproj.GenerateResource.cache
+C:\Users\dung1\Documents\CODING file\VS 2017\app_tester\app_tester\obj\Debug\app_tester.csproj.CoreCompileInputs.cache
+C:\Users\dung1\Documents\CODING file\VS 2017\app_tester\app_tester\obj\Debug\app_tester.exe
+C:\Users\dung1\Documents\CODING file\VS 2017\app_tester\app_tester\obj\Debug\app_tester.pdb

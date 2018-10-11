@@ -1,0 +1,145 @@
+﻿<Window x:Class="app_tester.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:app_tester"
+        mc:Ignorable="d"
+        Title="Test" Height="450" Width="800" >
+
+    <TabControl TabStripPlacement="Left"
+                Margin="5"
+                Name="mainTab"
+                SelectionChanged="mainTab_SelectionChanged" >
+        <TabItem Header="Test"
+                 Height="60">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ListView Margin="10" 
+                          Name="listTestingQueue" 
+                          Grid.Column="0">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Index"
+                                            Width="50"
+                                            DisplayMemberBinding="{Binding Index}"/>
+                            
+                            <GridViewColumn Header="Path"
+                                            Width="200"
+                                            DisplayMemberBinding="{Binding Path}"/>
+                            
+                            <GridViewColumn Header="Test"
+                                            Width="100"
+                                            DisplayMemberBinding="{Binding Test}"/>
+                            
+                            <GridViewColumn Header="Status"
+                                            Width="150"
+                                            DisplayMemberBinding="{Binding Status}"/>
+                            
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Grid Grid.Column="1" 
+                      Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.5*" />
+                        <RowDefinition Height="1.5*" />
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="5*" />
+                    </Grid.RowDefinitions>
+                    <Button Margin="10"
+                            Grid.Row="0"
+                            Name="start_testing">
+                        Start
+                    </Button>
+                    <Button Margin="10"
+                            Grid.Row="1"
+                            Click="addFiles" >
+                        Add files
+                    </Button>
+                    <TextBlock Margin="5" 
+                               Grid.Row="3"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Opacity="0.5">
+                        <Bold>
+                            Command Output
+                        </Bold>
+                    </TextBlock>
+                    <TextBox Margin="5" 
+                             Grid.Row="4" 
+                             Name="cmd_result" 
+                             HorizontalScrollBarVisibility="Auto"
+                             VerticalScrollBarVisibility="Auto"
+                             IsReadOnly="True" />
+                </Grid>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Mapping"
+                 Height="60">
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="3*" />
+                </Grid.RowDefinitions>
+                <TextBlock Margin="5"
+                           Grid.Row="0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           FontSize="15"
+                           Opacity="0.5">
+                    <Bold>
+                        Choose folder contain all test (note that each test is a folder, it contains 1 input and 1 output):
+                    </Bold>
+                </TextBlock>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Margin="5"
+                             Grid.Column="0"
+                             Name="mappingFolder" />
+                    <Button Margin="5"
+                            Grid.Column="1"
+                            Name="chooseMappingFolder">
+                        Choose folder
+                    </Button>
+                </Grid>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Settings"
+                 Height="60">
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <CheckBox Name="auto_detection"
+                              Margin="15"
+                              Grid.Row="0"
+                              VerticalAlignment="Center"
+                              FontSize="15"
+                              IsChecked="False"
+                              Checked="auto_detect_check">
+                        Automatic detection (note that file names should be recornized like "name-index.cpp"
+                    </CheckBox>
+                </Grid>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Exit"
+                 Height="60" />
+    </TabControl>
+</Window>
