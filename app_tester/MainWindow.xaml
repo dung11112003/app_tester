@@ -19,7 +19,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <ListView Margin="10" 
-                          Name="listTestingQueue" 
+                          Name="listTestingQueueBox" 
                           Grid.Column="0">
                     <ListView.View>
                         <GridView>
@@ -94,7 +94,7 @@
                            FontSize="15"
                            Opacity="0.5">
                     <Bold>
-                        Choose folder contain all test (note that each test is a folder, it contains 1 input and 1 output):
+                        Choose folder contain all test (note that each test is a folder, it contains some inputs and outputs):
                     </Bold>
                 </TextBlock>
                 <Grid Grid.Row="1">
@@ -107,10 +107,27 @@
                              Name="mappingFolder" />
                     <Button Margin="5"
                             Grid.Column="1"
-                            Name="chooseMappingFolder">
+                            Click="chooseMappingFolder">
                         Choose folder
                     </Button>
                 </Grid>
+                <ListView Margin="10"
+                          Name="testListBox"
+                          Grid.Row="2">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Index"
+                                            Width="50" 
+                                            DisplayMemberBinding="{Binding TestIndex}"/>
+                            <GridViewColumn Header="Test name"
+                                            Width="200" 
+                                            DisplayMemberBinding="{Binding TestName}"/>
+                            <GridViewColumn Header="IO"
+                                            Width="100"
+                                            DisplayMemberBinding="{Binding IO}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </Grid>
         </TabItem>
         <TabItem Header="Settings"

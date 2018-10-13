@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -22,52 +23,31 @@ namespace app_tester
     /// </summary>
     public partial class MainWindow : Window
     {
-        private OpenFileDialog openCPP = new OpenFileDialog();
-
-        public List<fileInQueue> queue = new List<fileInQueue>();
-
-        public class fileInQueue
-        {
-            public int Index
-            {
-                get;
-                set;
-            }
-            public string Path
-            {
-                get;
-                set;
-            }
-            public string Test
-            {
-                get;
-                set;
-            }
-            public string Status
-            {
-                get;
-                set;
-            }
-        }
 
         private void InitializeOpenCPP()
         {
-            this.openCPP.Multiselect = true;
-            this.openCPP.Filter = "C++ files (.cpp)|*.cpp|All files (*.*)|*.*";
-            this.openCPP.Title = "Choose C++ files";
+            Variables.openCPP.Multiselect = true;
+            Variables.openCPP.Filter = "C++ files (.cpp)|*.cpp|All files (*.*)|*.*";
+            Variables.openCPP.Title = "Choose C++ files";
+        }
+
+        private void InitializeOpenFolder()
+        {
+            Variables.openFolder.Description = "Choose folder:";
         }
 
         public MainWindow()
         {
             InitializeComponent();
             InitializeOpenCPP();
+            InitializeOpenFolder();
         }
 
         private void mainTab_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (mainTab.SelectedIndex == 3)
             {
-                MessageBoxResult exitResult = MessageBox.Show("Do you want to exit?", "Exit", MessageBoxButton.OKCancel);
+                MessageBoxResult exitResult = System.Windows.MessageBox.Show("Do you want to exit?", "Exit", MessageBoxButton.OKCancel);
                 switch (exitResult)
                 {
                     case MessageBoxResult.OK:
@@ -88,20 +68,45 @@ namespace app_tester
 
         public void addFiles(object sender, RoutedEventArgs e)
         {
-            if (openCPP.ShowDialog() == true)
+            if (Variables.openCPP.ShowDialog() == true)
             {
-                foreach (string nameOfFiles in openCPP.FileNames)
+                foreach (string nameOfFiles in Variables.openCPP.FileNames)
                 {
-                    queue.Add(new fileInQueue()
+                    Variables.queue.Add(new Variables.fileInQueue()
                     {
-                        Index = queue.Count() + 1,
+                        Index = Variables.queue.Count() + 1,
                         Path = System.IO.Path.GetFileName(nameOfFiles),
                         Test = "",
                         Status = "In queue"
                     });
                 }
-                listTestingQueue.ItemsSource = queue;
-                listTestingQueue.Items.Refresh();
+                listTestingQueueBox.ItemsSource = Variables.queue;
+                listTestingQueueBox.Items.Refresh();
+            }
+        }
+
+        public void chooseMappingFolder(object sender, RoutedEventArgs e)
+        {
+            if (Variables.openFolder.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                Variables.testFolderPath = new DirectoryInfo(Variables.openFolder.SelectedPath);
+                mappingFolder.Text = Variables.openFolder.SelectedPath;
+
+                if (Variables.testFolderPath.Exists)
+                {
+                    Variables.test_list.Clear();
+                    foreach (DirectoryInfo subDir in Variables.testFolderPath.GetDirectories())
+                    {
+                        Variables.test_list.Add(new Variables.listOfTest()
+                        {
+                            TestIndex = Variables.test_list.Count() + 1,
+                            TestName = subDir.Name,
+                            IO = subDir.GetDirectories().Length.ToString(),
+                        });
+                    }
+                    testListBox.ItemsSource = Variables.test_list;
+                    testListBox.Items.Refresh();
+                }
             }
         }
     }
