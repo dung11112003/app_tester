@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using Microsoft.Win32;
@@ -29,17 +26,32 @@ namespace app_tester
                 get;
                 set;
             }
-            public string Path
+            public string Name
             {
                 get;
                 set;
             }
-            public string Test
+            public string FullName
+            {
+                get;
+                set;
+            }
+            public listOfTest Test
             {
                 get;
                 set;
             }
             public string Status
+            {
+                get;
+                set;
+            }
+            public string InitDirectory
+            {
+                get;
+                set;
+            }
+            public string FullPath
             {
                 get;
                 set;
@@ -54,6 +66,11 @@ namespace app_tester
                 set;
             }
             public string TestName
+            {
+                get;
+                set;
+            }
+            public List<DirectoryInfo> List
             {
                 get;
                 set;

@@ -3,17 +3,13 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Microsoft.Win32;
 
 namespace app_tester
@@ -45,7 +41,7 @@ namespace app_tester
 
         private void mainTab_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (mainTab.SelectedIndex == 3)
+            if (mainTab.SelectedIndex == 5)
             {
                 MessageBoxResult exitResult = System.Windows.MessageBox.Show("Do you want to exit?", "Exit", MessageBoxButton.OKCancel);
                 switch (exitResult)
@@ -66,18 +62,46 @@ namespace app_tester
 
         }
 
-        public void addFiles(object sender, RoutedEventArgs e)
+        private Variables.listOfTest testRecornize(string fileName, DirectoryInfo PathOfFolder)
+        {
+            if (PathOfFolder != null)
+            {
+                for (int i = 0; i < PathOfFolder.GetDirectories().Length; i++)
+                {
+                    if (fileName == PathOfFolder.GetDirectories()[i].Name + ".cpp")
+                    {
+                        return new Variables.listOfTest()
+                        {
+                            TestIndex = i + 1,
+                            TestName = PathOfFolder.GetDirectories()[i].Name,
+                            IO = PathOfFolder.GetDirectories()[i].GetDirectories().Length.ToString(),
+                        };
+                    }
+                }
+            }
+            return new Variables.listOfTest()
+            {
+                TestIndex = -1,
+                TestName = string.Empty,
+                IO = string.Empty,
+            };
+        }
+
+        private void addFiles(object sender, RoutedEventArgs e)
         {
             if (Variables.openCPP.ShowDialog() == true)
             {
-                foreach (string nameOfFiles in Variables.openCPP.FileNames)
+                foreach (string pathOfFiles in Variables.openCPP.FileNames)
                 {
                     Variables.queue.Add(new Variables.fileInQueue()
                     {
                         Index = Variables.queue.Count() + 1,
-                        Path = System.IO.Path.GetFileName(nameOfFiles),
-                        Test = "",
-                        Status = "In queue"
+                        Name = Path.GetFileNameWithoutExtension(pathOfFiles),
+                        FullName = Path.GetFileName(pathOfFiles),
+                        Test = testRecornize(Path.GetFileName(pathOfFiles), Variables.testFolderPath),
+                        Status = "In queue",
+                        InitDirectory = Variables.openCPP.InitialDirectory,
+                        FullPath = pathOfFiles,
                     });
                 }
                 listTestingQueueBox.ItemsSource = Variables.queue;
@@ -85,7 +109,7 @@ namespace app_tester
             }
         }
 
-        public void chooseMappingFolder(object sender, RoutedEventArgs e)
+        private void chooseMappingFolder(object sender, RoutedEventArgs e)
         {
             if (Variables.openFolder.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -101,6 +125,7 @@ namespace app_tester
                         {
                             TestIndex = Variables.test_list.Count() + 1,
                             TestName = subDir.Name,
+                            List = subDir.GetDirectories().ToList(),
                             IO = subDir.GetDirectories().Length.ToString(),
                         });
                     }
@@ -108,6 +133,17 @@ namespace app_tester
                     testListBox.Items.Refresh();
                 }
             }
+        }
+
+        private void queueRefresh(object sender, RoutedEventArgs e)
+        {
+            foreach (Variables.fileInQueue part in Variables.queue)
+            {
+                part.Test = testRecornize(part.Name, Variables.testFolderPath);
+            }
+
+            listTestingQueueBox.ItemsSource = Variables.queue;
+            listTestingQueueBox.Items.Refresh();
         }
     }
 }
